@@ -27,7 +27,6 @@ export const usePanelStore = create<PanelState>((set) => ({
     panels: defaultPanels,
 
     setPanels: (panels) => {
-        localStorage.setItem("panels", JSON.stringify(panels));
         set({ panels });
     },
 
@@ -36,7 +35,6 @@ export const usePanelStore = create<PanelState>((set) => ({
             const panels = state.panels.map((p) =>
                 p.id === id ? { ...p, open: !p.open } : p
             );
-            localStorage.setItem("panels", JSON.stringify(panels));
             return { panels };
         }),
 }));

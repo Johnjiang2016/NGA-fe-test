@@ -38,7 +38,10 @@ export default function PanelContainer() {
     <div className="flex-1 overflow-x-auto snap-x">
       <DndContext
         collisionDetection={closestCenter}
-        onDragStart={(e: DragStartEvent) => setActiveId(e.active.id)}
+        onDragStart={(e: DragStartEvent) => {
+          const id = e.active.id as string
+          setActiveId(id)
+        }}
         onDragEnd={handleDragEnd}
       >
         <SortableContext
