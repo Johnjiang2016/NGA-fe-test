@@ -6,31 +6,24 @@ import {
     ChatBubbleBottomCenterIcon,
 } from "@heroicons/react/24/outline";
 
-const iconMap = {
+import { usePanelStore } from "@/store/usePanelStore";
+
+const icons = {
     map: MapIcon,
     music: MusicalNoteIcon,
     chat: ChatBubbleBottomCenterIcon,
 };
 
-export default function Sidebar({ panels, setPanels }: any) {
-    const toggle = (id: string) => {
-        setPanels((prev: any) =>
-            prev.map((p: any) =>
-                p.id === id ? { ...p, open: !p.open } : p
-            )
-        );
-    };
+export default function Sidebar() {
+    const { panels, toggle } = usePanelStore();
 
     return (
         <div className="w-20 bg-gray-100 flex flex-col items-center py-4 gap-6">
-            {panels.map((p: any) => {
-                const Icon = iconMap[p.id];
+            {panels.map((p) => {
+                const Icon = icons[p.id];
                 return (
-                    <button key={p.id} onClick={() => toggle(p.id)}>
-                        <Icon
-                            className={`w-6 h-6 cursor-pointer ${p.open ? "text-black" : "text-gray-300"
-                                }`}
-                        />
+                    <button key={p.id} onClick={() => toggle(p.id)} title={p.title}>
+                        <Icon className={`w-6 h-6 transition cursor-pointer ${p.open ? "text-black" : "text-gray-300"}`} />
                     </button>
                 );
             })}
