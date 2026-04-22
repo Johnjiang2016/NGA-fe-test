@@ -45,7 +45,12 @@ export default function PanelItem({ panel }: { panel: Panel }) {
           <XMarkIcon onClick={() => toggle(panel.id)} className="w-5 h-5 cursor-pointer" />
         </div>
 
-        <div className="flex-1 p-4">Content</div>
+        <div className="flex-1 p-4">
+          <h3>{panel.title}</h3>
+          <p>
+            面板宽度可以自定义，试试调整右边的边框
+          </p>
+        </div>
       </div>
     </ResizablePanel>
   );
