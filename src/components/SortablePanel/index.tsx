@@ -20,6 +20,11 @@ export default function SortablePanel({ panel, defaultWidth }: { panel: Panel, d
     setPanels(newPanels);
   }
 
+  const dragProps = {
+    ...attributes,
+    ...listeners
+  }
+
   return (
     <ResizablePanel width={width} onResize={updateWidth}>
       <div
@@ -28,8 +33,8 @@ export default function SortablePanel({ panel, defaultWidth }: { panel: Panel, d
         // 拖动增加阴影
         className={`h-full flex-1 flex flex-col shadow-md bg-white snap-start bg-gray-100 ${isDragging ? "shadow-2xl z-50 scale-105" : ""}`}
       >
-        <div className="h-full" {...attributes}  {...listeners} >
-          <PanelContent id={panel.id} title={panel.title} onClose={toggle} />
+        <div className="h-full" >
+          <PanelContent id={panel.id} title={panel.title} onClose={toggle} dragProps={dragProps} />
         </div>
       </div>
     </ResizablePanel>
