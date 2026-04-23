@@ -1,11 +1,6 @@
 "use client";
 
-import {
-    MapIcon,
-    MusicalNoteIcon,
-    ChatBubbleBottomCenterIcon,
-} from "@heroicons/react/24/outline";
-
+import { MapIcon, MusicalNoteIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { usePanelStore } from "@/store/usePanelStore";
 
 const icons = {
@@ -23,7 +18,10 @@ export default function Sidebar() {
                 const Icon = icons[p.id];
                 return (
                     <button key={p.id} onClick={() => toggle(p.id)} title={p.title}>
-                        <Icon className={`w-6 h-6 transition cursor-pointer ${p.open ? "text-black" : "text-gray-300"}`} />
+                        <div className={`flex flex-col items-center ${p.open ? "text-black" : "text-gray-300"}`}>
+                            <Icon className="w-6 h-6 transition cursor-pointer" />
+                            <span className="text-xs mt-1"> {p.title}</span>
+                        </div>
                     </button>
                 );
             })}

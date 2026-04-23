@@ -1,6 +1,7 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
 import PanelContainer from "@/components/PanelContainer";
+import Loading from "@/components/Loading";
 import { useHasMounted } from "@/hooks/useHasMounted";
 
 export default function Page() {
@@ -17,6 +18,3 @@ export default function Page() {
   );
 }
 
-function Loading() {
-  return <div className="flex-1 text-center p-8">loading...</div>
-}

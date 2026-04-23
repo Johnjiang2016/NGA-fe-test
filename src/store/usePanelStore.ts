@@ -8,7 +8,9 @@ export interface Panel {
     id: PanelType;
     title: string;
     open: boolean;
-    width: number
+    width: number;
+    //  是否手动调整过
+    resized?: boolean;
 }
 
 interface PanelState {
