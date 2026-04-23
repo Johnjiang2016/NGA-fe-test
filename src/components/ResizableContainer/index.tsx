@@ -1,21 +1,20 @@
 "use client";
-
+import { type ReactNode } from "react";
 import { Resizable } from "re-resizable";
-import { ReactNode } from "react";
-
 interface Props {
     width: number;
-    minWidth?: number;
+    minWidth?: string | number;
     onResize: (width: number) => void;
     children: ReactNode;
 }
 
-export default function ResizablePanel({
+export default function ResizableContainer({
     width,
-    minWidth = 320,
+    minWidth,
     onResize,
     children,
 }: Props) {
+
     return (
         <Resizable
             size={{ width, height: "100%" }}

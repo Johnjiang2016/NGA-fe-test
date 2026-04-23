@@ -4,10 +4,10 @@ import { type DragEndEvent, DragOverlay, DndContext, closestCenter, PointerSenso
 import { SortableContext, horizontalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { usePanelStore, type Panel } from "@/store/usePanelStore";
+import SortableContainer from "@/components/SortableContainer";
 import useContainerWidth from "@/hooks/useContainerWidth";
-import SortablePanel from "@/components/SortablePanel";
 
-export default function PanelContainer() {
+export default function Workspace() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const { panels, setPanels } = usePanelStore();
   const { containerRef, containerWidth } = useContainerWidth();
@@ -44,7 +44,7 @@ export default function PanelContainer() {
         onDragEnd={handleDragEnd}  >
         <SortableContext items={panels.map((p) => p.id)} strategy={horizontalListSortingStrategy}   >
           <div ref={containerRef} className="flex h-full" >
-            <SortablePanelList panels={panels} containerWidth={containerWidth} />
+            <SortableItemList panels={panels} containerWidth={containerWidth} />
           </div>
         </SortableContext>
         <DragOverlay>
@@ -60,7 +60,7 @@ export default function PanelContainer() {
 
 }
 
-function SortablePanelList({ panels, containerWidth }: { panels: Panel[], containerWidth: number }) {
+function SortableItemList({ panels, containerWidth }: { panels: Panel[], containerWidth: number }) {
   // 计算打开的面板数量，平均分配宽度
   const openLen = panels.filter((p) => p.open).length;
   // 面板全部关闭时
@@ -69,7 +69,7 @@ function SortablePanelList({ panels, containerWidth }: { panels: Panel[], contai
   const defaultWidth = allClose ? 320 : Math.floor(containerWidth / openLen) - 5;// 减去面板之间边框宽度
   // 当全部关闭时显示 显示空
   if (allClose) return <Empty />
-  return panels.map((p: Panel) => p.open && <SortablePanel key={p.id} panel={p} defaultWidth={defaultWidth} />)
+  return panels.map((p: Panel) => p.open && <SortableContainer key={p.id} panel={p} defaultWidth={defaultWidth} />)
 }
 
 // 当没有打开的面板时显示

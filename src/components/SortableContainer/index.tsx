@@ -2,11 +2,12 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { usePanelStore, type Panel } from "@/store/usePanelStore";
-import ResizablePanel from "@/components/ResizablePanel";
-import PanelContent from "@/components/PanelContent";
+import ResizableContainer from "@/components/ResizableContainer";
+import PanelContent from "@/components/Panel";
 
 
-export default function SortablePanel({ panel, defaultWidth }: { panel: Panel, defaultWidth: number }) {
+
+export default function SortableContainer({ panel, defaultWidth }: { panel: Panel, defaultWidth: number }) {
   const { panels, toggle, setPanels } = usePanelStore();
   const { setNodeRef, isDragging, transform, transition, attributes, listeners } = useSortable({ id: panel.id });
   const width = panel.resized ? panel.width : defaultWidth;
@@ -25,19 +26,21 @@ export default function SortablePanel({ panel, defaultWidth }: { panel: Panel, d
     ...listeners
   }
 
+  const minWidth = `${Math.floor(1 / panels.length * 10000) / 100}%`
+
   return (
-    <ResizablePanel width={width} onResize={updateWidth}>
+    <ResizableContainer width={width} minWidth={minWidth} onResize={updateWidth}>
       <div
         ref={setNodeRef}
         style={style}
         // 拖动增加阴影
         className={`h-full flex-1 flex flex-col shadow-md bg-white snap-start bg-gray-100 ${isDragging ? "shadow-2xl z-50 scale-105" : ""}`}
       >
-        <div className="h-full" >
+        <div className="h-full flex flex-col" >
           <PanelContent id={panel.id} title={panel.title} onClose={toggle} dragProps={dragProps} />
         </div>
       </div>
-    </ResizablePanel>
+    </ResizableContainer>
   );
 }
 
