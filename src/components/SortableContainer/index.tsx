@@ -26,7 +26,7 @@ export default function SortableContainer({ panel, defaultWidth }: { panel: Pane
     ...listeners
   }
 
-  const minWidth = `${Math.floor(1 / panels.length * 10000) / 100}%`
+  const minWidth = `${Math.floor(1 / panels.length * 1000) / 10}%`
 
   return (
     <ResizableContainer width={width} minWidth={minWidth} onResize={updateWidth}>

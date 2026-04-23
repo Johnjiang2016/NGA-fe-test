@@ -43,7 +43,7 @@ export default function Workspace() {
         onDragCancel={() => setActiveId(null)}
         onDragEnd={handleDragEnd}  >
         <SortableContext items={panels.map((p) => p.id)} strategy={horizontalListSortingStrategy}   >
-          <div ref={containerRef} className="flex h-full" >
+          <div ref={containerRef} className="flex h-full min-w-4xl" >
             <SortableItemList panels={panels} containerWidth={containerWidth} />
           </div>
         </SortableContext>
@@ -65,8 +65,8 @@ function SortableItemList({ panels, containerWidth }: { panels: Panel[], contain
   const openLen = panels.filter((p) => p.open).length;
   // 面板全部关闭时
   const allClose = openLen === 0;
-  // 当没有打开的面板时，默认宽度为320px
-  const defaultWidth = allClose ? 320 : Math.floor(containerWidth / openLen) - 5;// 减去面板之间边框宽度
+  // 平均分配宽度
+  const defaultWidth = Math.floor(containerWidth / openLen)
   // 当全部关闭时显示 显示空
   if (allClose) return <Empty />
   return panels.map((p: Panel) => p.open && <SortableContainer key={p.id} panel={p} defaultWidth={defaultWidth} />)
